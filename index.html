@@ -9,61 +9,14 @@
   </head>
 
   <body>
-	<!--<script src="index.js"></script>-->
+	<h2 align="center">Socials</h2>
 
-  <div id="fullPage">
-    <div class="rowDiv">
-      <div class="tipButton" id="tipLow">
-        <h1 class="tipTextP">10%</h1>
-        <h3 class="tipTextD">$3.50</h3>
-      </div>
-      <div class="tipButton" id="tipMid">
-        <h1 class="tipTextP">15%</h1>
-        <h3 class="tipTextD">$4.20</h3>
-      </div>
-      <div class="tipButton" id="tipHigh">
-        <h1 class="tipTextP">20%</h1>
-        <h3 class="tipTextD">$6.90</h3>
-      </div>
-    </div>
-    <div class="rowDiv">
-      <div class="tipButtonWide" id="noTip">
-        <h1 class="tipTextP">No Tip</h1>
-      </div>
-    </div>
-  </div>
-
+	<!-- Add font awesome icons -->
+	<div align="center">
+	  <!--<a href="#" class="fa fa-twitter"></a> -->
+	  <a href="https://www.youtube.com/@kazuno8298" class="fa fa-youtube"></a>
+	  <a href="https://www.instagram.com/kazuno.space/" class="fa fa-instagram"></a>
+	  <!--<a href="#" class="fa fa-snapchat-ghost"></a> -->
+	</div>
   </body>
-  <script type="text/javascript">
-    document.getElementById('tipLow').addEventListener('click', tipLowClick);
-    document.getElementById('tipMid').addEventListener('click', tipMidClick);
-    document.getElementById('tipHigh').addEventListener('click', tipHighClick);
-
-    document.getElementById('noTip').addEventListener('click', noTipClick);
-    var wompWomp = new Audio("wompWomp.wav");
-    var yippee = new Audio("yippee.wav");
-    var noice = new Audio("noice.wav");
-    var bruh = new Audio("bruh.wav");
-
-    function tipLowClick(){
-      wompWomp.play();
-      document.getElementById('fullPage').innerHTML  = "<img src=\"sadPepe.png\" class=\"reaction\">";
-    }
-
-    function tipMidClick(){
-      yippee.play();
-      document.getElementById('fullPage').innerHTML  = "<img src=\"yippee.gif\" class=\"reaction\">";
-    }
-
-    function tipHighClick(){
-      noice.play();
-      document.getElementById('fullPage').innerHTML  = "<img src=\"wojak.png\" class=\"reaction\">";
-    }
-
-    function noTipClick(){
-      bruh.play();
-      document.getElementById('fullPage').innerHTML  = "<img src=\"mike.png\" class=\"reaction\">";
-    }
-
-  </script>
 </html>
