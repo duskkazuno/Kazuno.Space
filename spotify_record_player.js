@@ -17,7 +17,7 @@ function check_auth(){
 				main_canvas = document.createElement("canvas");
 				main_canvas.width = window.innerWidth;
 				main_canvas.height = window.innerHeight;
-				
+
 				const base_size = 900;
 				scale_factor = 1/base_size * Math.min(main_canvas.width,main_canvas.height);
 
@@ -70,6 +70,7 @@ function get_current_track(){
                 throw new Error('Network response was not ok');
             }
             // Parse response body as JSON
+            console.log(response);
             return response.json();
         })
         .then(data => {
