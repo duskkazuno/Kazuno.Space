@@ -8,32 +8,55 @@
 		<link rel="stylesheet" href="style.css">
 	</head>
 
-	<body>
-		<button onclick="auth()">Auth</button>
-		
+	<body>		
 		<!--
 			<canvas id="main_canvas" width="900" height="900"></canvas>
 			<script src="spotify_record_player.js"></script>
 		-->
 
-		<script> 
-			var client_id = '46b65a997cb042b093496ef048d068ba';
-			var redirect_uri = 'http://duskkazuno.github.io/Kazuno.Space/spotify_record_player.html';
+		<div id="auth_button_container">
 
-			var scope = 'user-read-currently-playing';
+		</div>
 
-			var url = 'http://accounts.spotify.com/authorize';
-			url += '?response_type=token';
-			url += '&client_id=' + encodeURIComponent(client_id);
-			url += '&scope=' + encodeURIComponent(scope);
-			url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
-			//url += '&state=' + encodeURIComponent(state);
-			url += "&show_dialog=true"
+		<script>
+			check_auth();
 
-        	function auth(){
-    			console.log("Auth start");
-    			window.location = url
-        	}
-    </script> 
+			function check_auth(){
+				if(window.location.hash) {
+					var hash = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
+					alert (hash);
+					console.log("Hash found")
+				} else {
+					console.log("No hash")
+					var auth_button = document.createElement("button"); 
+					auth_button.onclick = auth;
+					auth_button.innerHTML = "Log in"
+
+					document.getElementById("auth_button_container").appendChild(auth_button);
+				}
+			}
+
+			function auth(){
+				console.log("Auth start");
+
+				var client_id = '46b65a997cb042b093496ef048d068ba';
+				var redirect_uri = 'http://duskkazuno.github.io/Kazuno.Space/spotify_record_player.html';
+
+				var scope = 'user-read-currently-playing';
+
+				var url = 'http://accounts.spotify.com/authorize';
+				url += '?response_type=token';
+				url += '&client_id=' + encodeURIComponent(client_id);
+				url += '&scope=' + encodeURIComponent(scope);
+				url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
+				//url += '&state=' + encodeURIComponent(state);
+				url += "&show_dialog=true"
+
+				window.location = url
+			}
+		</script>		
 	</body>
 </html>
+
+
+<!--https://duskkazuno.github.io/Kazuno.Space/spotify_record_player.html#access_token=BQB-ac1oVaDbwqU9xvapIMxBl8gtUkx0aKb59rc6k3kZGD_ElbNc59ku0Rah2FSUnx0HIE1KYy8xe9AwP7uPLS0CgetBqAbpkoJ3dvDW_CJBS08ykvPD5MVieLvv4imCmyaeV6_uf9ajB1FvMHcEcBUz4OLvmAHYBiDXDXShdQ1OY1qQ40MB&token_type=Bearer&expires_in=3600-->
