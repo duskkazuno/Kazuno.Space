@@ -1,16 +1,61 @@
-var c = document.getElementById("main_canvas");
-var ctx = c.getContext("2d");
-setInterval(drawLoop, 1000/60);
-c.width = window.innerWidth;
-c.height = window.innerHeight;
+var access_token = "";
+var main_canvas;
+var ctx;
+
+check_auth();
+
+function check_auth(){
+	if(window.location.hash) {
+		var hash = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
+
+		var hash_values = hash.split("&");
+
+		for(let i=0;i<hash_values.length;i++){
+			if(hash_values[i].startsWith("access_token=")){
+				access_token = hash_values[i].substring(13);
+
+				main_canvas = document.createElement("canvas");
+				main_canvas.width = window.innerWidth;
+				main_canvas.height = window.innerHeight;
+				ctx = main_canvas.getContext("2d");
+				setInterval(drawLoop, 1000/60);
+
+				document.getElementById("main_canvas_container").appendChild(main_canvas);
+			}
+		}
+	} else {
+		var auth_button = document.createElement("button"); 
+		auth_button.onclick = auth;
+		auth_button.innerHTML = "Log in"
+
+		document.getElementById("auth_button_container").appendChild(auth_button);
+	}
+}
+
+function auth(){
+	var client_id = '46b65a997cb042b093496ef048d068ba';
+	var redirect_uri = 'http://duskkazuno.github.io/Kazuno.Space/spotify_record_player.html';
+
+	var scope = 'user-read-currently-playing';
+
+	var url = 'http://accounts.spotify.com/authorize';
+	url += '?response_type=token';
+	url += '&client_id=' + encodeURIComponent(client_id);
+	url += '&scope=' + encodeURIComponent(scope);
+	url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
+	//url += '&state=' + encodeURIComponent(state);
+	url += "&show_dialog=true"
+
+	window.location = url;
+}
 
 const base_size = 900;
-var scale_factor = 1/base_size * Math.min(c.width,c.height)
+var scale_factor = 1/base_size * Math.min(main_canvas.width,main_canvas.height)
 
 function fill_background(){
 	ctx.globalCompositeOperation = 'source-over';
 
-	c.style = "background-color:"+accent_color;
+	main_canvas.style = "background-color:"+accent_color;
 }
 
 const d = new Date();
@@ -40,7 +85,7 @@ record_mask.src = "record_mask.png";
 const record_base = new Image();
 record_base.src = "record_base.png";
 function draw_record(){
-	ctx.setTransform(1, 0, 0, 1, c.width/2, c.height/2);
+	ctx.setTransform(1, 0, 0, 1, main_canvas.width/2, main_canvas.height/2);
 	ctx.rotate(rotation * (Math.PI / 180));
 	ctx.drawImage(record_mask, -record_mask.width * scale_factor/2, -record_mask.width * scale_factor/2, record_mask.height * scale_factor, record_mask.height * scale_factor);
 	ctx.globalCompositeOperation = 'source-in';

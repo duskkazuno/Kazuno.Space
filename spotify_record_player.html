@@ -11,56 +11,14 @@
 	<body>		
 		<!--
 			<canvas id="main_canvas" width="900" height="900"></canvas>
-			<script src="spotify_record_player.js"></script>
 		-->
+		<script src="spotify_record_player.js"></script>
 
-		<div id="auth_button_container">
-
+		<div id="main_canvas_container">
 		</div>
 
-		<script>
-			check_auth();
-
-			var access_token = "";
-
-			function check_auth(){
-				if(window.location.hash) {
-					var hash = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
-
-					var hash_values = hash.split("&");
-
-					for(let i=0;i<hash_values.length;i++){
-						if(hash_values[i].startsWith("access_token=")){
-							access_token = hash_values[i].substring(13);
-							alert(access_token)
-						}
-					}
-				} else {
-					var auth_button = document.createElement("button"); 
-					auth_button.onclick = auth;
-					auth_button.innerHTML = "Log in"
-
-					document.getElementById("auth_button_container").appendChild(auth_button);
-				}
-			}
-
-			function auth(){
-				var client_id = '46b65a997cb042b093496ef048d068ba';
-				var redirect_uri = 'http://duskkazuno.github.io/Kazuno.Space/spotify_record_player.html';
-
-				var scope = 'user-read-currently-playing';
-
-				var url = 'http://accounts.spotify.com/authorize';
-				url += '?response_type=token';
-				url += '&client_id=' + encodeURIComponent(client_id);
-				url += '&scope=' + encodeURIComponent(scope);
-				url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
-				//url += '&state=' + encodeURIComponent(state);
-				url += "&show_dialog=true"
-
-				window.location = url;
-			}
-		</script>		
+		<div id="auth_button_container">
+		</div>	
 	</body>
 </html>
 
