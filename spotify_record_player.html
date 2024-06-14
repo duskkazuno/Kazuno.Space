@@ -9,8 +9,34 @@
 	</head>
 
 	<body>
-		<canvas id="main_canvas" width="900" height="900"></canvas>
-		<script src="Vibrant.js"></script>
-		<script src="spotify_record_player.js"></script>
+		<button onclick="auth()">Auth</button>
+		
+		<!--
+			<canvas id="main_canvas" width="900" height="900"></canvas>
+			<script src="spotify_record_player.js"></script>
+		-->
+
+		<script> 
+			var client_id = '46b65a997cb042b093496ef048d068ba';
+			var redirect_uri = 'kazuno.space/spotify_record_player.html/callback';
+
+			//var state = generateRandomString(16);
+
+			//localStorage.setItem(stateKey, state);
+			var scope = 'user-read-currently-playing';
+
+			var url = 'https://accounts.spotify.com/authorize';
+			url += '?response_type=token';
+			url += '&client_id=' + encodeURIComponent(client_id);
+			url += '&scope=' + encodeURIComponent(scope);
+			url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
+			//url += '&state=' + encodeURIComponent(state);
+
+        	function auth(){
+    			console.log("Auth start");
+
+    			window.location = "https://accounts.spotify.com/authorize?client_id=" + client_id + "&response_type=token" + "&redirect_uri=" + encodeURIComponent(redirect_uri) + "&scope=" + encodeURIComponent(scope) + "&show_dialog=true"
+        	}
+    </script> 
 	</body>
 </html>
