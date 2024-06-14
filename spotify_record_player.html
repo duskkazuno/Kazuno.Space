@@ -18,24 +18,21 @@
 
 		<script> 
 			var client_id = '46b65a997cb042b093496ef048d068ba';
-			var redirect_uri = 'kazuno.space/spotify_record_player.html/callback';
+			var redirect_uri = 'http://duskkazuno.github.io/Kazuno.Space/spotify_record_player.html';
 
-			//var state = generateRandomString(16);
-
-			//localStorage.setItem(stateKey, state);
 			var scope = 'user-read-currently-playing';
 
-			var url = 'https://accounts.spotify.com/authorize';
+			var url = 'http://accounts.spotify.com/authorize';
 			url += '?response_type=token';
 			url += '&client_id=' + encodeURIComponent(client_id);
 			url += '&scope=' + encodeURIComponent(scope);
 			url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
 			//url += '&state=' + encodeURIComponent(state);
+			url += "&show_dialog=true"
 
         	function auth(){
     			console.log("Auth start");
-
-    			window.location = "https://accounts.spotify.com/authorize?client_id=" + client_id + "&response_type=token" + "&redirect_uri=" + encodeURIComponent(redirect_uri) + "&scope=" + encodeURIComponent(scope) + "&show_dialog=true"
+    			window.location = url
         	}
     </script> 
 	</body>
