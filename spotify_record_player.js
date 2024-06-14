@@ -21,6 +21,8 @@ function check_auth(){
 				setInterval(drawLoop, 1000/60);
 
 				document.getElementById("main_canvas_container").appendChild(main_canvas);
+
+				get_current_track();
 			}
 		}
 	} else {
@@ -47,6 +49,35 @@ function auth(){
 	url += "&show_dialog=true"
 
 	window.location = url;
+}
+
+function get_current_track(){
+	fetch("https://api.spotify.com/v1/me/player/currently-playing",
+	{
+		method: "GET",
+		headers: {
+			Authorization: 'Bearer ${access_token}'
+		}
+	})
+        .then(response => {
+            // Check if the response is successful (status 200)
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // Parse response body as JSON
+            return response.json();
+        })
+        .then(data => {
+            // Data is the parsed JSON response
+            console.log(data);
+
+
+            // You can do further processing with the data here
+        })
+        .catch(error => {
+            // Handle any errors that occurred during the fetch
+            console.error('There was a problem with the fetch operation:', error);
+        });
 }
 
 const base_size = 900;
@@ -117,10 +148,12 @@ function draw_tone_arm(){
 }
 
 function drawLoop(){
-	fill_background();
-	calculate_rotation();
-	draw_record();
-	draw_tone_arm();
+	if(main_canvas){
+		fill_background();
+		calculate_rotation();
+		draw_record();
+		draw_tone_arm();
 
-	last_time = cur_time;
+		last_time = cur_time;
+	}	
 }
