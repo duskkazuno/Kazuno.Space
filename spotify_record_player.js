@@ -1,6 +1,11 @@
 var c = document.getElementById("main_canvas");
 var ctx = c.getContext("2d");
 setInterval(drawLoop, 1000/60);
+c.width = window.innerWidth;
+c.height = window.innerHeight;
+
+const base_size = 900;
+var scale_factor = 1/base_size * Math.min(c.width,c.height)
 
 function fill_background(){
 	ctx.globalCompositeOperation = 'source-over';
@@ -28,21 +33,21 @@ function calculate_rotation(){
 
 var album_art = new Image();
 album_art.src = "image_temp.png";
-var accent_color = '#B0f0B0';
+var accent_color = '#B0F0B0';
 
 const record_mask = new Image();
 record_mask.src = "record_mask.png";
 const record_base = new Image();
 record_base.src = "record_base.png";
 function draw_record(){
-	ctx.setTransform(1, 0, 0, 1, 450, 450);
+	ctx.setTransform(1, 0, 0, 1, c.width/2, c.height/2);
 	ctx.rotate(rotation * (Math.PI / 180));
-	ctx.drawImage(record_mask, -450, -450, 900, 900);
+	ctx.drawImage(record_mask, -record_mask.width * scale_factor/2, -record_mask.width * scale_factor/2, record_mask.height * scale_factor, record_mask.height * scale_factor);
 	ctx.globalCompositeOperation = 'source-in';
-	ctx.drawImage(album_art, -220/2, -220/2, 220, 220);
+	ctx.drawImage(album_art, -220 * scale_factor/2, -220 * scale_factor/2, 220*scale_factor, 220*scale_factor);
 
 	ctx.globalCompositeOperation = 'source-over';
-	ctx.drawImage(record_base, -636/2,-636/2, 636,636);
+	ctx.drawImage(record_base, -record_base.width * scale_factor/2, -record_base.width * scale_factor/2, record_base.width*scale_factor,record_base.height*scale_factor);
 
 	ctx.setTransform(1, 0, 0, 1, 0, 0);
 }
@@ -57,10 +62,12 @@ function draw_tone_arm(){
 		tone_arm_angle = 0;
 	}
 
+	tone_arm_angle = 23
+
 	ctx.globalCompositeOperation = 'source-over';
-	ctx.setTransform(1, 0, 0, 1, 893, 127);
+	ctx.setTransform(1, 0, 0, 1, 893*scale_factor, 127*scale_factor);
 	ctx.rotate(tone_arm_angle * (Math.PI / 180));
-	ctx.drawImage(tone_arm,783-893,-71-127, 240,900);
+	ctx.drawImage(tone_arm,(783-893)*scale_factor,(-71-127)*scale_factor, 240*scale_factor,900*scale_factor);
 	ctx.setTransform(1, 0, 0, 1, 0, 0);
 }
 
