@@ -21,13 +21,21 @@
 		<script>
 			check_auth();
 
+			var access_token = "";
+
 			function check_auth(){
 				if(window.location.hash) {
 					var hash = window.location.hash.substring(1); //Puts hash in variable, and removes the # character
-					alert (hash);
-					console.log("Hash found")
+
+					var hash_values = hash.split("&");
+
+					for(let i=0;i<hash_values.length;i++){
+						if(hash_values[i].startsWith("access_token=")){
+							access_token = hash_values[i].substring(13);
+							alert(access_token)
+						}
+					}
 				} else {
-					console.log("No hash")
 					var auth_button = document.createElement("button"); 
 					auth_button.onclick = auth;
 					auth_button.innerHTML = "Log in"
@@ -37,8 +45,6 @@
 			}
 
 			function auth(){
-				console.log("Auth start");
-
 				var client_id = '46b65a997cb042b093496ef048d068ba';
 				var redirect_uri = 'http://duskkazuno.github.io/Kazuno.Space/spotify_record_player.html';
 
@@ -52,7 +58,7 @@
 				//url += '&state=' + encodeURIComponent(state);
 				url += "&show_dialog=true"
 
-				window.location = url
+				window.location = url;
 			}
 		</script>		
 	</body>
