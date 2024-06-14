@@ -17,7 +17,10 @@ function check_auth(){
 				main_canvas = document.createElement("canvas");
 				main_canvas.width = window.innerWidth;
 				main_canvas.height = window.innerHeight;
+				scale_factor = 1/base_size * Math.min(main_canvas.width,main_canvas.height);
+
 				ctx = main_canvas.getContext("2d");
+
 				setInterval(drawLoop, 1000/60);
 
 				document.getElementById("main_canvas_container").appendChild(main_canvas);
@@ -56,7 +59,7 @@ function get_current_track(){
 	{
 		method: "GET",
 		headers: {
-			Authorization: 'Bearer ${access_token}'
+			Authorization: 'Bearer ' + access_token
 		}
 	})
         .then(response => {
@@ -81,7 +84,7 @@ function get_current_track(){
 }
 
 const base_size = 900;
-var scale_factor = 1/base_size * Math.min(main_canvas.width,main_canvas.height)
+var scale_factor = 1;
 
 function fill_background(){
 	ctx.globalCompositeOperation = 'source-over';
