@@ -17,6 +17,8 @@ function check_auth(){
 				main_canvas = document.createElement("canvas");
 				main_canvas.width = window.innerWidth;
 				main_canvas.height = window.innerHeight;
+				
+				const base_size = 900;
 				scale_factor = 1/base_size * Math.min(main_canvas.width,main_canvas.height);
 
 				ctx = main_canvas.getContext("2d");
@@ -83,7 +85,6 @@ function get_current_track(){
         });
 }
 
-const base_size = 900;
 var scale_factor = 1;
 
 function fill_background(){
